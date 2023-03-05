@@ -19,16 +19,15 @@ function text(){
         return "red";
       }
     });
-
-    console.log(d3.selectAll("p"));
 }
 
 function drawBarChart() {
-  var w = 500;
+    var w = 500;
     var h = 200; 
     //gap between bars
     var barPadding = 1;
     let dataset =[14, 5, 26, 23 , 9, 15, 21, 8, 7, 16, 30, 28, 26, 15, 12, 10, 16, 19];
+    console.log(dataset);
     var svg = d3.select("#chart1")
                 .append("svg")
                 .attr("width", w)
@@ -152,7 +151,7 @@ function drawDataScatterPot() {
     .call(yAxis);
 
 
-  //Text X-Axis
+  // x-axis text
   svg.append("text")
     .attr("transform",
       "translate(" + (width / 2) + " ," +
@@ -160,7 +159,7 @@ function drawDataScatterPot() {
     .style("text-anchor", "middle")
     .text("X Axis");
 
-  //Text Y-Axs
+  // y-axis text
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
@@ -169,23 +168,103 @@ function drawDataScatterPot() {
     .style("text-anchor", "middle")
     .text("Y Axis");
 
-  console.log(d3.selectAll("p"));
 
 }
+
+//Need to be fixed !!! 
+// var wombatSighting = [];
+
+// function getData(){
+//   let url = "test.csv";
+//   d3.csv(url, function(data){
+//      wombatSighting.push(parseFloat(data.wombats));
+//   });
+
+
+// }
+
+//Test
+var wombatSighting = [];
 
 function getData() {
-  d3.csv("test.csv").then(function(data) {
-    wombatSightings = data;
-    console.log(data);
-
-
-  })
-
+  return new Promise(function(resolve) {
+    var url = "test.csv";
+    d3.csv(url, function(data) {
+      wombatSighting.push(parseFloat(data.wombats));
+      resolve(wombatSighting);
+    });
+  });
 }
 
+
+function drawWombatsBarChart() {
+  getData().then(function(wombatSighting) {
+    var w = 500;
+    var h = 200; 
+    //gap between bars
+    console.log(wombatSighting);
+
+    var dataset = [];
+    dataset = wombatSighting;
+
+    var barPadding = 1;
+    var svg = d3.select("#wombat")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+    // Draw a rectangle
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d,i){
+            return i* (w / dataset.length);
+        })
+        .attr("y", function(d) {
+            return h - d * 50;
+        })
+        .attr("width", w/dataset.length - barPadding)
+        .attr("height", function(d){
+            return d * 50;
+        })
+        .style("fill",function(d){
+            return "rgb(1,50, " + d*50 + ")";
+        })
+    // Label
+        svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return d;
+        })
+        .attr("x", function(d, i) {
+            // get the text to centre of the bar 
+            return i * (w / dataset.length) + 15;
+        })
+        .attr("y", function(d) {
+            //get the text to the top of the bar
+            return h - d * 50 + 15;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "white")
+        .attr("text-anchor", "middle");
+  });
+}
+
+
+
+//End
+
+
+
+
 function main() {
-  text(); drawBarChart(); drawDataScatterPot();
-  getData();
+  text(); 
+  drawBarChart(); 
+  drawDataScatterPot();
+  drawWombatsBarChart();
 }
   
 
