@@ -1,7 +1,7 @@
 function text(){
 
   let dataset = [14, 5, 26, 23, 9];
-    d3.select("body")
+    d3.select("#paragraphtext")
     .selectAll("p")
     .data(dataset)
     .enter()
@@ -29,7 +29,7 @@ function drawBarChart() {
     //gap between bars
     var barPadding = 1;
     let dataset =[14, 5, 26, 23 , 9, 15, 21, 8, 7, 16, 30, 28, 26, 15, 12, 10, 16, 19];
-    var svg = d3.select("body")
+    var svg = d3.select("#chart1")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
@@ -98,7 +98,7 @@ function drawDataScatterPot() {
     .domain([0, d3.max(dataset, function(d) { return d[1]; })])
     .range([height, 0]);
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#chart2").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -169,11 +169,23 @@ function drawDataScatterPot() {
     .style("text-anchor", "middle")
     .text("Y Axis");
 
+  console.log(d3.selectAll("p"));
+
 }
 
+function getData() {
+  d3.csv("test.csv").then(function(data) {
+    wombatSightings = data;
+    console.log(data);
+
+
+  })
+
+}
 
 function main() {
   text(); drawBarChart(); drawDataScatterPot();
+  getData();
 }
   
 
