@@ -58,13 +58,13 @@ function Show() {
 }
 
 function updateChart(selectedYear, animals, pets2019, pets2021) {
-  let chartData = {
+  let chartLabels = {
     labels: animals,
     datasets: []
   };
   
   if (selectedYear === "2019") {
-    chartData.datasets.push({
+    chartLabels.datasets.push({
       label: "Pets in 2019",
       data: pets2019,
       backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -74,7 +74,7 @@ function updateChart(selectedYear, animals, pets2019, pets2021) {
   }
   
   if (selectedYear === "2021") {
-    chartData.datasets.push({
+    chartLabels.datasets.push({
       label: "Pets in 2021",
       data: pets2021,
       backgroundColor: "rgba(54, 162, 235, 0.2)",
@@ -84,13 +84,13 @@ function updateChart(selectedYear, animals, pets2019, pets2021) {
   }
 
   if (selectedYear === "both") {
-    chartData.datasets.push({
+    chartLabels.datasets.push({
         label: "Pets in 2019",
         data: pets2019,
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,});
-    chartData.datasets.push({
+    chartLabels.datasets.push({
         label: "Pets in 2021",
         data: pets2021,
         backgroundColor: "rgba(54, 162, 235, 0.2)",
@@ -108,13 +108,12 @@ function updateChart(selectedYear, animals, pets2019, pets2021) {
   let canvas = document.getElementById("myChart");
   myChart = new Chart(canvas, {
     type: "bar",
-    data: chartData,
+    data: chartLabels,
     options: {
       scales: {
         yAxes: [{
           ticks: {
             beginAtZero: true
-
             }
           }]
         }

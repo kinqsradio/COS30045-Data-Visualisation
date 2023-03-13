@@ -21,6 +21,14 @@ h2 {
 	font-weight: normal;
 }
 
+#petImage {
+	display: inline-block;
+  	align-items: center;
+	margin-right: 10px;
+	width: 50px;
+  	height: auto;
+}
+
 .image-container {
 	display: flex; /* Set the container to use flexbox layout */
 	justify-content: space-evenly; /* Distribute the images evenly along the container */
@@ -69,38 +77,23 @@ footer {
 }
 
 button {
-  --b: 3px;   /* border thickness */
-  --s: .45em; /* size of the corner */
-  --color: #373B44;
-  margin-top: 2%;
-  margin-bottom: 2%;
+	padding: 10px;
+	background-color: #373B44;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+  }
   
-  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
-  color: var(--color);
-  --_p: var(--s);
-  background:
-    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
-    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
-  transition: .3s linear, color 0s, background-color 0s;
-  outline: var(--b) solid #0000;
-  outline-offset: .6em;
-  font-size: 16px;
-
-  border: 0;
-
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+button:hover {
+background-color: #000;
 }
 
-button:hover,
-button:focus-visible{
-  --_p: 0px;
-  outline-color: var(--color);
-  outline-offset: .05em;
+button:focus-visible {
+outline: none;
+box-shadow: 0 0 0 2px #373B44, 0 0 0 4px #000;
 }
 
 button:active {
-  background: var(--color);
-  color: #fff;
+background-color: #000;
 }
