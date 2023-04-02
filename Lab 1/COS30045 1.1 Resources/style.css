@@ -1,0 +1,99 @@
+html {
+	scroll-behavior: smooth;
+  }
+
+body{
+	margin:auto;
+	margin-bottom: 50px;
+	width:1024px;
+	padding:10px;
+	background-color:#ebebeb;
+	font-size:14px;
+	font-family:Verdana;
+}
+
+h1 {
+	font-style: bold;
+	color: red;
+}
+
+h2 {
+	font-weight: normal;
+}
+
+#petImage {
+	display: inline-block;
+  	align-items: center;
+	margin-right: 10px;
+	width: 50px;
+  	height: auto;
+}
+
+.image-container {
+	display: flex; /* Set the container to use flexbox layout */
+	justify-content: space-evenly; /* Distribute the images evenly along the container */
+	margin-bottom: 3%;
+}
+.image {
+	/* Set the width of each image */
+	max-width: 15%;
+	max-height: auto;
+}
+
+.table-image{
+	display: block;
+	margin: auto;
+	max-width: 40%;
+}
+
+figure {
+	display: block;
+	text-align: center;
+	margin: 5px; /* adjust as needed */
+}
+figure img {
+	vertical-align: top;
+	max-width: 100%;
+}
+figure figcaption {
+	text-align: center;
+	font-style: italic;
+}
+  
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color:#ebebeb;
+	text-align: center;
+	padding: 10px;
+}
+
+.button-container{
+	display: flex;
+  	justify-content: space-evenly;
+  	align-items: center;
+}
+
+button {
+	padding: 10px;
+	background-color: #373B44;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+  }
+  
+button:hover {
+background-color: #000;
+}
+
+button:focus-visible {
+outline: none;
+box-shadow: 0 0 0 2px #373B44, 0 0 0 4px #000;
+}
+
+button:active {
+background-color: #000;
+}

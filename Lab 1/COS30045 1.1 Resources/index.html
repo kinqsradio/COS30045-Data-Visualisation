@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Tran Duc Anh Dang"/>
+
+	<title>Task 1.1 HTML and CSS Demo Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="javascript/script.js"></script>
+
+</head>
+
+<body>
+
+
+	<h1>Title of Article about Interesting Visualisation</h1>
+	<h2>Author of Interesting Article</h2>
+
+
+	<p>Pets and the Pandemic
+
+
+		A report from Animal Medicines Australia (AMA) has found that many Australians took the opportunity to introduce a pet into their household during the pandemic. Their survey indicated that there was a significant increase in the percent of households taking in a new dog, fish or bird. Their research also indicated that pets had a number of positive influences on their lives such as:
+		
+		<ul>
+			<li>companionship</li>
+			<li>better mental health</li>
+			<li>joy and happiness.</li>
+		</ul>
+
+		<div>
+			<img id="petImage" src="cat.jpg">
+			<img id="petImage" src="fish.jpg">
+			<img id="petImage" src="dog.png ">
+		</div>
+			
+		<figure>
+			<p>
+				<img src="pet_ownership_in_australia_table.png">
+				<figcaption>
+					Fig1. Comparison of Pet Ownership in 2019 and 2021. Data Source: 
+					<a href="https://animalmedicinesaustralia.org.au/wp-content/uploads/2021/08/ AMAU005-PATP-Report21_v1.41_WEB.pdf" target="_blank">Animal Medicines Australia Report</a>
+				</figcaption>
+			</p>
+		</figure>
+
+		<div class='button-container' onload="getData()">
+			<button onclick="Show()" class="year-button" value="2019">2019</button>
+			<button onclick="Show()" class="year-button" value="2021">2021</button>
+			<button onclick="Show()" class="year-button" value="both">Both</button>
+
+		</div>
+		  
+
+		<div id="Chart" style="display:none">
+			<canvas id="myChart"></canvas>
+		</div>
+
+		
+
+		With the increase in pet ownership the AMA are encouraging policy makers to consider the needs of companion animals and their owners when considering rental, strata and body corporate regulations are well as accepting animals in public places and transport.
+			
+	</p>
+
+	<svg class="shapes" width="500" height="100">
+		<rect x="0" y="0" width="50" height="50" fill="red" />
+		<circle cx="75" cy="25" r="25" fill="orange" />
+		<ellipse cx="150" cy="25" rx="50" ry="25" fill="yellow" />
+	</svg>
+	  
+
+
+	<footer>COS30045 Data Visualisation - Tran Duc Anh Dang</footer>
+
+</body>
+</html>
