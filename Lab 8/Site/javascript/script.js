@@ -34,7 +34,7 @@ function getPath(projection) {
     .projection(projection);
 }
 
-function createHeatMap(svg, path, color, json) {
+function createHeatMap(svg, path, color, json, cityData, projection) {
   svg.selectAll("path")
     .data(json.features)
     .enter()
@@ -43,7 +43,7 @@ function createHeatMap(svg, path, color, json) {
     // Add color enconding for unemployment data
     .style("fill", function(d) {
       var value = d.properties.unemployed;
-      return value ? color(value) : "#FF0000";
+      return value ? color(value) : "grey";
     })
     .on("mouseover", function(event, d) {
       // Set up tooltip
@@ -59,34 +59,78 @@ function createHeatMap(svg, path, color, json) {
       var tooltip = d3.select("#tooltip");
       tooltip.style("visibility", "hidden");
     });
+
+  // Add city points
+  svg.selectAll(".city-point")
+    .data(cityData)
+    .enter()
+    .append("circle")
+    .attr("class", "city-point")
+    .attr("cx", function(d) {
+      return projection([d.lon, d.lat])[0];
+    })
+    .attr("cy", function(d) {
+      return projection([d.lon, d.lat])[1];
+    })
+    .attr("r", 4)
+    .style("fill", "red");
+
+  svg.selectAll(".city-label")
+    .data(cityData)
+    .enter()
+    .append("text")
+    .attr("class", "city-label")
+    .attr("x", function(d) {
+      return projection([d.lon, d.lat])[0] + 6;
+    })
+    .attr("y", function(d) {
+      return projection([d.lon, d.lat])[1];
+    })
+    .text(function(d) {
+      return d.city_name;
+    })
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "10px");
 }
 
+function loadDataAndCreateMap(svg, path, color, projection) {
+  // Load city coordinates
+  d3.csv("sources/VIC_city.csv").then(function(cityData) {
 
-function loadDataAndCreateMap(svg, path, color) {
-  d3.csv("sources/VIC_LGA_unemployment.csv").then(function(data) {
-    color.domain([
-      d3.min(data, function(d) { return d.unemployed; }),
-      d3.max(data, function(d) { return d.unemployed; })
-    ]);
+    // Convert latitude and longitude to numbers
+    cityData.forEach(function(d) {
+      d.city_name = d.place;
+      d.latitude = +d.latitude;
+      d.longitude = +d.longitude;
+    });
 
-    d3.json("sources/LGA_VIC.json").then(function(json) {
-      for (var i = 0; i < data.length; i++) {
-        var dataCity = data[i].lga;
-        var dataUnemployed = parseFloat(data[i].unemployed);
+    // Load unemployment data
+    d3.csv("sources/VIC_LGA_unemployment.csv").then(function(data) {
+      color.domain([
+        d3.min(data, function(d) { return d.unemployed; }),
+        d3.max(data, function(d) { return d.unemployed; })
+      ]);
 
-        for (var j = 0; j < json.features.length; j++) {
-          var jsonCity = json.features[j].properties.LGA_name || "";
-          if (dataCity == jsonCity) {
-            json.features[j].properties.unemployed = dataUnemployed;
-            break;
+      // Load GeoJSON data
+      d3.json("sources/LGA_VIC.json").then(function(json) {
+        for (var i = 0; i < data.length; i++) {
+          var dataCity = data[i].lga;
+          var dataUnemployed = parseFloat(data[i].unemployed);
+
+          for (var j = 0; j < json.features.length; j++) {
+            var jsonCity = json.features[j].properties.LGA_name || "";
+            if (dataCity == jsonCity) {
+              json.features[j].properties.unemployed = dataUnemployed;
+              break;
+            }
           }
         }
-      }
-
-      createHeatMap(svg, path, color, json);
+        createHeatMap(svg, path, color, json, cityData, projection);
+      });
     });
   });
 }
+
 
 function createMap() {
 
@@ -95,7 +139,7 @@ function createMap() {
   var path = getPath(projection);
   var color = getColorRange();
 
-  loadDataAndCreateMap(svg, path, color);
+  loadDataAndCreateMap(svg, path, color, projection);
 }
 
 function main() {
