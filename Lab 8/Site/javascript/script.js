@@ -1,6 +1,8 @@
+// Set up initial dimensions of the SVG element
 var width = 500;
 var height = 500;
 
+// Define the color range for the heatmap
 function getColorRange() {
   return d3.scaleQuantize()
     .range(['rgb(220, 237, 200)', 
@@ -15,6 +17,7 @@ function getColorRange() {
             'rgb(22, 85, 35)']);
 }
 
+// Create the SVG element and append it to the DOM
 function createSVG(width, height) {
   return d3.select("#chart")
     .append("svg")
@@ -22,6 +25,7 @@ function createSVG(width, height) {
     .attr("height", height);
 }
 
+// Set up the projection used to display the map
 function getProjection(width, height) {
   return d3.geoMercator()
     .center([145, -36.5])
@@ -29,11 +33,13 @@ function getProjection(width, height) {
     .scale(3000);
 }
 
+// Set up the path generator for the map projection
 function getPath(projection) {
   return d3.geoPath()
     .projection(projection);
 }
 
+// Set up and create a heatmap showing unemployment rates in Victoria, Australia.
 function createHeatMap(svg, path, color, json, cityData, projection) {
   svg.selectAll("path")
     .data(json.features)
@@ -75,6 +81,7 @@ function createHeatMap(svg, path, color, json, cityData, projection) {
     .attr("r", 4)
     .style("fill", "red");
 
+  // Add city label
   svg.selectAll(".city-label")
     .data(cityData)
     .enter()
@@ -92,7 +99,7 @@ function createHeatMap(svg, path, color, json, cityData, projection) {
     .attr("font-family", "sans-serif")
     .attr("font-size", "10px");
 }
-
+// Load data to create heat map
 function loadDataAndCreateMap(svg, path, color, projection) {
   // Load city coordinates
   d3.csv("sources/VIC_city.csv").then(function(cityData) {
@@ -131,7 +138,7 @@ function loadDataAndCreateMap(svg, path, color, projection) {
   });
 }
 
-
+// Create Map
 function createMap() {
 
   var svg = createSVG(width, height);

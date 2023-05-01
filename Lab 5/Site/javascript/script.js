@@ -102,21 +102,21 @@ function updateBarChart(dataset) {
     .data(dataset);
 
   bars.enter() // Add new elements if required
-    .append("rect") // Create new rectangle
+    .append("rect")
     .merge(bars)
     .transition()
     .ease(easeEffect)
     .duration(1000) // ms default = 0
     .delay(1000) // ms default = 0
     .attr("x", function(d, i) {
-      return xScale(i) // update x value
+      return xScale(i)
     })
     .attr("y", function(d) {
-      return yScale(d) // update y value
+      return yScale(d)
     })
-    .attr("width", xScale.bandwidth()) // update width value
+    .attr("width", xScale.bandwidth())
     .attr("height", function(d) {
-      return 0, h - yScale(d); // update height value
+      return 0, h - yScale(d);
     })
     .style("fill", function(d) {
       return "rgb(1,10, " + d * 10 + ")";
@@ -227,7 +227,6 @@ function main() {
   drawBarChart(); 
 }
   
-// Call the getData function when the window is loaded
 window.onload = function() {
   main();
   document.getElementById("updateBtn").addEventListener("click", function() {
