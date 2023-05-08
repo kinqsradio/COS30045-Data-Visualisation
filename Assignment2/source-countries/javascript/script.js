@@ -47,8 +47,8 @@ function createHeatMap(svg, path, color, json, projection, year) {
         return value ? color(value) : "#CCC";
     })
     
-      .style("stroke", "black")  // This line adds a black border
-      .style("stroke-width", "0.5") // This line controls the width of the border
+      .style("stroke", "black")  // adds a black border
+      .style("stroke-width", "0.5") // width of the border
       .on("mouseover", function(event, d) {
         var tooltip = d3.select("#tooltip");
         tooltip.style("visibility", "visible")
@@ -105,7 +105,6 @@ function createHeatMap(svg, path, color, json, projection, year) {
       });
     });
   }
-  
   
 
   function createLegend(svg) {
