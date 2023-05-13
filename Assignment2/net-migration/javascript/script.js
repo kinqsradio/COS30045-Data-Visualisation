@@ -93,6 +93,7 @@ function createAreaChart(svg, data, xScale, yScale) {
 function main() {
   d3.csv("/data/net-migration/net-migrant.csv").then(function(data) {
     data.forEach(function(d) {
+    //   d.Date = +d.Date;
       d.NSW = +d.NSW;
       d.Vic = +d.Vic;
       d.Qld = +d.Qld;
@@ -108,7 +109,6 @@ function main() {
   });
 }
 
-  
 window.onload = function() {
     main();
   };
