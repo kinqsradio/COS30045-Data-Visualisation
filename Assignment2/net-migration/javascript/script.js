@@ -39,8 +39,8 @@ function createLineChart(data, scales) {
     .attr("d", line);
 
   addAxes(svg, xScale, yScale);
-//   addAnnotations(svg, xScale, yScale, data);
-//   createAreaChart(svg, data, xScale, yScale);
+  addAnnotations(svg, xScale, yScale, data);
+  createAreaChart(svg, data, xScale, yScale);
 }
 
 function addAxes(svg, xScale, yScale) {
