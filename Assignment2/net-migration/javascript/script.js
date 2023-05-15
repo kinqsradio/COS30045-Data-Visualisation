@@ -2,18 +2,19 @@
 var w = 1000;
 var h = 720;
 var padding = 50;
-var parseTime = d3.timeParse("%m-%y");
+var parseTime = d3.timeParse("%b-%y");
 
 function createLine(svg, data, xScale, yScale, property) {
   const line = d3.line()
-    .x(d => xScale(parseTime(d.Date)))
+    .x(d => xScale(d.Date))
     .y(d => yScale(d[property]));
 
   svg.append("path")
     .datum(data)
-    .attr("class", property)
-    .attr("d", line)
-    .style("stroke", "blue");
+    .attr("fill", "none")
+    .attr("stroke", "blue")
+    .attr("stroke-width", 1.5)
+    .attr("d", line);
 }
 
 function addAnnotations(svg, yScale, data, text) {
@@ -36,15 +37,23 @@ function addAnnotations(svg, yScale, data, text) {
 
 function main() {
   d3.csv("/data/net-migration/net-migrant.csv").then(function(data) {
-    const junes = data
-      .filter(d => d.Date.split('-')[0] === "Jun")
-      .map(d => d.Date);
+    // Filter to only include data from June and parse dates
+    data = data.filter(d => d.Date.split('-')[0] === "Jun");
+    data.forEach(d => {
+      d.Date = parseTime(d.Date);
+      d.NSW = +d.NSW;
+      d.Vic = +d.Vic;
+      d.Qld = +d.Qld;
+      d.WA = +d.WA;
+      d.zeroline = +d.zeroline;
+    });
+
+    console.log("Filtered data:", data);
 
     // Scales
-    const xScale = d3.scaleBand()
-      .domain(junes)
-      .range([padding, w - padding])
-      .padding(0.1);
+    const xScale = d3.scaleTime()
+      .domain(d3.extent(data, d => d.Date))
+      .range([padding, w - padding]);
 
     const yScale = d3.scaleLinear()
       .domain([-80, 120])
@@ -70,20 +79,11 @@ function main() {
 
     addAnnotations(svg, yScale, 0, "ZeroLine");
 
-    data.forEach(function(d) {
-      d.Date = parseTime(d.Date);
-      d.NSW = +d.NSW;
-      d.Vic = +d.Vic;
-      d.Qld = +d.Qld;
-      d.WA = +d.WA;
-      d.zeroline = +d.zeroline;
-      console.log(d.NSW);
-
-      createLine(svg, data, xScale, yScale, "NSW");
-      createLine(svg, data, xScale, yScale, "Vic");
-      createLine(svg, data, xScale, yScale, "Qld");
-      createLine(svg, data, xScale, yScale, "WA");
-    });
+    // Create lines for each property
+    createLine(svg, data, xScale, yScale, "NSW", "blue");
+    createLine(svg, data, xScale, yScale, "Vic", "red");
+    createLine(svg, data, xScale, yScale, "Qld", "green");
+    createLine(svg, data, xScale, yScale, "WA", "purple");
   });
 }
 
