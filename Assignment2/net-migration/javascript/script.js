@@ -4,7 +4,7 @@ var h = 720;
 var padding = 50;
 var parseTime = d3.timeParse("%b-%y");
 
-function createLine(svg, data, xScale, yScale, property) {
+function createLine(svg, data, xScale, yScale, property,color) {
   const line = d3.line()
     .x(d => xScale(d.Date))
     .y(d => yScale(d[property]));
@@ -12,7 +12,7 @@ function createLine(svg, data, xScale, yScale, property) {
   svg.append("path")
     .datum(data)
     .attr("fill", "none")
-    .attr("stroke", "blue")
+    .attr("stroke", color)
     .attr("stroke-width", 1.5)
     .attr("d", line);
 }
