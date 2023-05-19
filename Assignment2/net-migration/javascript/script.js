@@ -35,6 +35,62 @@ function addAnnotations(svg, yScale, data, text) {
     .attr("class", "annotation-line");
 }
 
+// Create Data Points on chart
+
+function createDataPoints(svg, data, xScale, yScale, property, color) {
+  svg.selectAll()
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("fill", color)
+    .attr("stroke", "none")
+    .attr("cx", function(d) { return xScale(d.Date); })
+    .attr("cy", function(d) { return yScale(d[property]); })
+    .attr("r", 5)
+    .on("mouseover", function(event, d) {
+      d3.select(this)
+        .attr('r', 8);
+      svg.append("text")
+        .attr("id", "tooltip")
+        .attr("x", xScale(d.Date))
+        .attr("y", yScale(d[property]) - 10)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "14px")
+        .attr("fill", "black")
+        .text(d[property]);
+    })
+    .on("mouseout", function() {
+      d3.select(this)
+        .attr('r', 5);
+      svg.select("#tooltip").remove();
+    });
+}
+
+// Create Legend
+function createLegend(svg, labels, colors) {
+  var legend = svg.selectAll(".legend")
+    .data(colors)
+    .enter()
+    .append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) {
+      return "translate(0," + i * 20 + ")";
+    });
+
+  legend.append("rect")
+    .attr("x", w - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", function(d, i) { return colors.slice().reverse()[i];});
+
+  legend.append("text")
+    .attr("x", w - 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "end")
+    .text(function(d, i) { return labels.slice().reverse()[i];});
+}
+
 function main() {
   d3.csv("/data/net-migration/net-migrant.csv").then(function(data) {
     // Filter to only include data from June and parse dates
@@ -79,11 +135,21 @@ function main() {
 
     addAnnotations(svg, yScale, 0, "ZeroLine");
 
-    // Create lines for each property
+    // Create lines and points for each property
     createLine(svg, data, xScale, yScale, "NSW", "blue");
+    createDataPoints(svg, data, xScale, yScale, "NSW", "blue");
+    
     createLine(svg, data, xScale, yScale, "Vic", "red");
+    createDataPoints(svg, data, xScale, yScale, "Vic", "red");
+    
     createLine(svg, data, xScale, yScale, "Qld", "green");
+    createDataPoints(svg, data, xScale, yScale, "Qld", "green");
+    
     createLine(svg, data, xScale, yScale, "WA", "purple");
+    createDataPoints(svg, data, xScale, yScale, "WA", "purple");
+
+    createLegend(svg, ["NSW", "Vic", "Qld", "WA"], ["blue", "red", "green", "purple"]);
+
   });
 }
 

@@ -162,3 +162,25 @@ button:active {
 	fill: slategray;
 }
   
+.toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 14px;
+  text-align: center;
+}
+
+.line-males {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.line-females {
+  fill: none;
+  stroke: red;
+  stroke-width: 2px;
+}
