@@ -53,16 +53,26 @@ function createHeatMap(svg, path, color, json, projection, year) {
       .style("stroke", "black")
       .style("stroke-width", "0.5")
       .on("mouseover", function(event, d) {
-          var tooltip = d3.select("#tooltip");
+        var tooltip = d3.select("#tooltip");
+        var tooltipText = d3.select("#tooltip-text");
+    
+        tooltipText.html("<b>" + d.properties.name + "</b><br>" + year + ": " + (d.properties["value" + year] || "Not available")); // Replace undefined values in the tooltip with "Not available"
           tooltip.style("visibility", "visible")
-              .html("<b>" + d.properties.name + "</b><br>" + year + ": " + (d.properties["value" + year] || "Not available")) // Replace undefined values in the tooltip with "Not available"
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 28) + "px");
+              .style("left", (event.pageX - 410)  + "px")
+              .style("top", (event.pageY -150) + "px");
+                      // Change border style
+        d3.select(this)
+        .style("stroke", "black")
+        .style("stroke-width", 2);
       })
       .on("mouseout", function() {
-          var tooltip = d3.select("#tooltip");
-          tooltip.style("visibility", "hidden");
-      });
+        var tooltip = d3.select("#tooltip");
+        tooltip.style("visibility", "hidden");
+        d3.select(this)
+        .style("stroke", null)
+        .style("stroke-width", null);
+    });
+     
 }
 
 
