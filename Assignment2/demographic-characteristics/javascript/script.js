@@ -3,7 +3,7 @@ function drawLineChart(data) {
     // Set the dimensions and margins of the chart
     var margin = { top: 20, right: 30, bottom: 30, left: 60 },
       width = 1100 - margin.left - margin.right,
-      height = 720 - margin.top - margin.bottom;
+      height = 650 - margin.top - margin.bottom;
   
     // Parse the age values as integers
     data.forEach(function (d) {

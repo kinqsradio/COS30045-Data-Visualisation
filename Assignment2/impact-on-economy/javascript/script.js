@@ -24,18 +24,33 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       });
   }
   
+  // function drawAxes(svg, x, y, height) {
+  //   svg.append("g")
+  //     .attr("class", "axis")
+  //     .attr("transform", "translate(0," + height + ")")
+  //     .call(d3.axisBottom(x))
+  //     .selectAll("text")
+  //     .attr("y", 0)
+  //     .attr("x", 9)
+  //     .attr("dy", ".35em")
+  //     .attr("transform", "rotate(90)")
+  //     .style("text-anchor", "start");
+  
+  //   svg.append("g")
+  //     .attr("class", "axis")
+  //     .call(d3.axisLeft(y).ticks(null, "s"))
+  //     .selectAll("line")
+  //     .attr("stroke-opacity", "0") // Set stroke-opacity to 0 to remove the colors
+  //     .attr("y2", -height);
+  // }
   function drawAxes(svg, x, y, height) {
     svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
       .selectAll("text")
-      .attr("y", 0)
-      .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(90)")
-      .style("text-anchor", "start");
-  
+      .remove(); // Remove the text elements on the x-axis
+    
     svg.append("g")
       .attr("class", "axis")
       .call(d3.axisLeft(y).ticks(null, "s"))
@@ -43,6 +58,7 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       .attr("stroke-opacity", "0") // Set stroke-opacity to 0 to remove the colors
       .attr("y2", -height);
   }
+  
   
   
   
@@ -56,7 +72,7 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       .data(keys.slice().reverse())
       .enter()
       .append("g")
-      .attr("transform", (d, i) => "translate(" + i * 100 + ", 0)");
+      .attr("transform", (d, i) => "translate(50," + i * 20 + ")"); // Adjust the y-translation value here
   
     legend
       .append("rect")
@@ -72,18 +88,15 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       .attr("y", 0)
       .attr("dy", "0.32em")
       .text(function (d) {
-        var label = d;
-        if (label.length > 12) {
-          label = label.slice(0, 12) + "..."; // Truncate label if it exceeds a certain length
-        }
-        return label;
+        return d
       });
   }
   
+  
   function main() {
-    var margin = { top: 20, right: 20, bottom: 30, left: 40 },
+    var margin = { top: 70, right: 50, bottom: 50, left: 70 },
       width = 1100 - margin.left - margin.right,
-      height = 720 - margin.top - margin.bottom;
+      height = 700 - margin.top - margin.bottom;
   
     var x = d3
       .scaleBand()

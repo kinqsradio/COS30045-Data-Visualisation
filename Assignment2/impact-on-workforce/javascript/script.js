@@ -73,7 +73,7 @@ function drawLegend(svg, keys, z, width) {
 function main() {
     var margin = {top: 50, right: 50, bottom: 30, left: 70},
     width = 1100 - margin.left - margin.right,
-    height = 720 - margin.top - margin.bottom;
+    height = 650 - margin.top - margin.bottom;
 
     // set x scale
     var x = d3.scaleBand()

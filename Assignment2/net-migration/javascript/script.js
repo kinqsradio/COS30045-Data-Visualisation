@@ -1,6 +1,6 @@
 // Line chart dimensions
 var w = 1050;
-var h = 760;
+var h = 700;
 var padding = 70;
 var parseTime = d3.timeParse("%b-%y");
 
