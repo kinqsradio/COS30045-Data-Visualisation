@@ -71,8 +71,8 @@ function drawLegend(svg, keys, z, width) {
 }
 
 function main() {
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 1000 - margin.left - margin.right,
+    var margin = {top: 50, right: 50, bottom: 30, left: 70},
+    width = 1100 - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
 
     // set x scale

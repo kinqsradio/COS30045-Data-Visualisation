@@ -2,7 +2,7 @@
 function drawLineChart(data) {
     // Set the dimensions and margins of the chart
     var margin = { top: 20, right: 30, bottom: 30, left: 60 },
-      width = 1000 - margin.left - margin.right,
+      width = 1100 - margin.left - margin.right,
       height = 720 - margin.top - margin.bottom;
   
     // Parse the age values as integers
@@ -98,11 +98,11 @@ function drawLineChart(data) {
   
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
+      .attr("y", 0 - margin.left +10)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Population ('000)");
+      .text("Population");
   
     // Add a legend
     var legend = svg.append("g")

@@ -82,7 +82,7 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
   
   function main() {
     var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-      width = 1000 - margin.left - margin.right,
+      width = 1100 - margin.left - margin.right,
       height = 720 - margin.top - margin.bottom;
   
     var x = d3

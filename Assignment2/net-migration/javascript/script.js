@@ -1,7 +1,7 @@
 // Line chart dimensions
-var w = 1000;
-var h = 720;
-var padding = 50;
+var w = 1050;
+var h = 760;
+var padding = 70;
 var parseTime = d3.timeParse("%b-%y");
 
 function createLine(svg, data, xScale, yScale, property,color) {
@@ -74,7 +74,7 @@ function createLegend(svg, labels, colors) {
     .append("g")
     .attr("class", "legend")
     .attr("transform", function(d, i) {
-      return "translate(0," + i * 20 + ")";
+      return "translate(0," + (i * 20 + 15) + ")";
     });
 
   legend.append("rect")

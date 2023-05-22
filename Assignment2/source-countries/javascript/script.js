@@ -27,7 +27,7 @@ function createSVG(width, height) {
 function getProjection(width, height) {
     return d3.geoMercator()
         .translate([width / 2, height / 2])
-        .scale(width / (2 * Math.PI)); // scale for world map
+        .scale(width / (2 * Math.PI) -35); // scale for world map
 }
 
 function getPath(projection) {
