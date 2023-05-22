@@ -138,18 +138,46 @@ function main() {
     // Create lines and points for each property
     createLine(svg, data, xScale, yScale, "NSW", "blue");
     createDataPoints(svg, data, xScale, yScale, "NSW", "blue");
-    
+
     createLine(svg, data, xScale, yScale, "Vic", "red");
     createDataPoints(svg, data, xScale, yScale, "Vic", "red");
-    
+
     createLine(svg, data, xScale, yScale, "Qld", "green");
     createDataPoints(svg, data, xScale, yScale, "Qld", "green");
-    
+
     createLine(svg, data, xScale, yScale, "WA", "purple");
     createDataPoints(svg, data, xScale, yScale, "WA", "purple");
 
     createLegend(svg, ["NSW", "Vic", "Qld", "WA"], ["blue", "red", "green", "purple"]);
 
+    // Add vertical lines for the Covid period
+    const startDate = parseTime("Mar-20");
+    const endDate = parseTime("Dec-21");
+
+    svg.append("line")
+      .attr("x1", xScale(startDate))
+      .attr("y1", padding)
+      .attr("x2", xScale(startDate))
+      .attr("y2", h - padding)
+      .attr("class", "covid-line")
+      .attr("stroke", "red")
+      .attr("stroke-dasharray", "4");
+
+    svg.append("line")
+      .attr("x1", xScale(endDate))
+      .attr("y1", padding)
+      .attr("x2", xScale(endDate))
+      .attr("y2", h - padding)
+      .attr("class", "covid-line")
+      .attr("stroke", "red")
+      .attr("stroke-dasharray", "4");
+
+    svg.append("text")
+      .attr("x", xScale(startDate) + 5)
+      .attr("y", padding + 20)
+      .text("Covid Period")
+      .attr("fill", "red")
+      .attr("class", "covid-line");
   });
 }
 
