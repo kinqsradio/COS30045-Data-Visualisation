@@ -133,7 +133,7 @@ function main() {
       .attr("transform", "translate(" + padding + ", 0)")
       .call(yAxis);
 
-    addAnnotations(svg, yScale, 0, "ZeroLine");
+    addAnnotations(svg, yScale, 0, "Zero Line");
 
     // Create lines and points for each property
     createLine(svg, data, xScale, yScale, "NSW", "blue");
