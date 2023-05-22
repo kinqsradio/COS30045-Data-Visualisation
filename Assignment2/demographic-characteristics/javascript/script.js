@@ -59,27 +59,27 @@ function drawLineChart(data) {
         .style("stroke-width", 2);
   
       // Add data points
-      /*svg.selectAll(".dot")
-        .data(lineData)
-        .enter()
-        .append("circle")
-        .attr("class", "dot")
-        .attr("cx", function (d) { return x(d.Age); })
-        .attr("cy", function (d) { return y(d.value); })
-        .attr("r", 4)
-        .style("fill", colorScale(index))
-        .on("mouseover", function (d) {
-          // Show tooltip with the age and value
-          var tooltip = d3.select("#tooltip");
-          tooltip.html("Age: " + d.Age + "<br/>Value: " + d.value)
-            .style("visibility", "visible")
-            .style("top", (d3.event.pageY - 10) + "px")
-            .style("left", (d3.event.pageX + 10) + "px");
-        })
-        .on("mouseout", function () {
-          // Hide tooltip
-          d3.select("#tooltip").style("visibility", "hidden");
-        });*/
+      // /*svg.selectAll(".dot")
+      //   .data(lineData)
+      //   .enter()
+      //   .append("circle")
+      //   .attr("class", "dot")
+      //   .attr("cx", function (d) { return x(d.Age); })
+      //   .attr("cy", function (d) { return y(d.value); })
+      //   .attr("r", 4)
+      //   .style("fill", colorScale(index))
+      //   .on("mouseover", function (d) {
+      //     // Show tooltip with the age and value
+      //     var tooltip = d3.select("#tooltip");
+      //     tooltip.html("Age: " + d.Age + "<br/>Value: " + d.value)
+      //       .style("visibility", "visible")
+      //       .style("top", (d3.event.pageY - 10) + "px")
+      //       .style("left", (d3.event.pageX + 10) + "px");
+      //   })
+      //   .on("mouseout", function () {
+      //     // Hide tooltip
+      //     d3.select("#tooltip").style("visibility", "hidden");
+      //   });*/
     });
   
     // Add the X Axis

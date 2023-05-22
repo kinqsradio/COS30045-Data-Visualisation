@@ -1,7 +1,7 @@
 // Line chart dimensions
 var w = 1050;
 var h = 700;
-var padding = 70;
+var padding = 100;
 var parseTime = d3.timeParse("%b-%y");
 
 function createLine(svg, data, xScale, yScale, property,color) {
@@ -31,6 +31,7 @@ function addAnnotations(svg, yScale, data, text) {
     .attr("x", padding + 10)
     .attr("y", yScale(data) - 7)
     .text(text)
+    .attr("font-size","18px")
     .attr("fill", "red")
     .attr("class", "annotation-line");
 }
@@ -48,14 +49,17 @@ function createDataPoints(svg, data, xScale, yScale, property, color) {
     .attr("cy", function(d) { return yScale(d[property]); })
     .attr("r", 5)
     .on("mouseover", function(event, d) {
+      // Draw border when hover
       d3.select(this)
         .attr('r', 8);
+      // Create tooltip
+
       svg.append("text")
         .attr("id", "tooltip")
         .attr("x", xScale(d.Date))
         .attr("y", yScale(d[property]) - 10)
         .attr("text-anchor", "middle")
-        .attr("font-size", "14px")
+        .attr("font-size", "18px")
         .attr("fill", "black")
         .text(d[property]);
     })
@@ -88,7 +92,7 @@ function createLegend(svg, labels, colors) {
     .attr("y", 9)
     .attr("dy", ".35em")
     .style("text-anchor", "end")
-    .text(function(d, i) { return labels.slice().reverse()[i];});
+    .text(function(d, i) { return labels.slice().reverse()[i].toUpperCase();});
 }
 
 function main() {
@@ -124,14 +128,18 @@ function main() {
     const yAxis = d3.axisLeft(yScale);
 
     svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + (h - padding) + ")")
-      .call(xAxis);
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + (h - padding) + ")")
+    .call(xAxis)
+    .selectAll("text")
+    .style("font-size", "18px");
 
     svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(" + padding + ", 0)")
-      .call(yAxis);
+      .call(yAxis)
+      .selectAll("text")
+      .style("font-size", "18px");;
 
     addAnnotations(svg, yScale, 0, "Zero Line");
 

@@ -106,15 +106,7 @@ figure figcaption {
 	font-style: italic;
 }
   
-footer {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background-color:#ebebeb;
-	text-align: center;
-	padding: 10px;
-}
+
 .button-container {
   display: flex;
   align-items: center;

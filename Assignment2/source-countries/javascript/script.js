@@ -34,7 +34,9 @@ function getPath(projection) {
     return d3.geoPath().projection(projection);
 }
 
+
 function createHeatMap(svg, path, color, json, projection, year) {
+
   svg.selectAll("path")
       .data(json.features)
       .enter()
