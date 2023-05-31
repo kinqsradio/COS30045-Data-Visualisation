@@ -1,53 +1,34 @@
 function drawBar(svg, data, x, y, z, keys, tooltip) {
-    svg
-      .append("g")
-      .selectAll("g")
-      .data(d3.stack().keys(keys)(data))
-      .enter()
-      .append("g")
-      .attr("fill", (d) => z(d.key))
-      .selectAll("rect")
-      .data((d) => d)
-      .enter()
-      .append("rect")
-      .attr("x", (d) => x(d.data["Residency Type"]))
-      .attr("y", (d) => y(d[1]))
-      .attr("height", (d) => y(d[0]) - y(d[1]))
-      .attr("width", x.bandwidth())
-      .on("mouseover", (event, d) => {
-        const barX = +d3.select(event.target).attr("x");
-        const barY = +d3.select(event.target).attr("y");
-        const barHeight = +d3.select(event.target).attr("height");
-        const barWidth = +d3.select(event.target).attr("width");
-  
-        tooltip
-          .html("Population: " + (d[1] - d[0]))
-          .style("visibility", "visible")
-          .style("left", barX + barWidth / 2 + "px")
-          .style("top", barY + barHeight + "px");
-      })
-      .on("mousemove", (event, d) => {
-        const barX = +d3.select(event.target).attr("x");
-        const barY = +d3.select(event.target).attr("y");
-        const barHeight = +d3.select(event.target).attr("height");
-        const barWidth = +d3.select(event.target).attr("width");
-  
-        tooltip
-          .style("left", barX + barWidth / 2 + "px")
-          .style("top", barY + barHeight + "px");
-      })
-      .on("mouseout", () => {
-        tooltip.style("visibility", "hidden");
-      });
-  }
-
-
-
-window.onload = function() {
-    main();
-};
-
-
+    svg.append("g")
+        .selectAll("g")
+        .data(d3.stack().keys(keys)(data))
+        .enter().append("g")
+            .attr("fill", d => z(d.key))
+        .selectAll("rect")
+        .data(d => d)
+        .enter().append("rect")
+            .attr("x", d => x(d.data["Residency Type"]))
+            .attr("y", d => y(d[1]))
+            .attr("height", d => y(d[0]) - y(d[1]))
+            .attr("width", x.bandwidth())
+        .on("mouseover", function(event, d) {
+            var tooltipText = d3.select("#tooltip-text");
+            // The tooltip content needs to be updated to match the bar chart data
+            tooltipText.html("</b><br>Population: " + (d[1]-d[0]));
+            tooltip.style("visibility", "visible")
+                .style("left", (event.pageX - 410) + "px")
+                .style("top", (event.pageY - 150) + "px");
+            d3.select(this)
+                .style("stroke", "black")
+                .style("stroke-width", 2);
+        })
+        .on("mouseout", function() {
+            tooltip.style("visibility", "hidden");
+            d3.select(this)
+                .style("stroke", null)
+                .style("stroke-width", null);
+        });
+}
 
 
 
@@ -68,7 +49,7 @@ function drawAxes(svg, x, y, height) {
 
     svg.append("text")
         .attr("x", -300)
-        .attr("y", y(y.ticks().pop()) - 65)
+        .attr("y", y(y.ticks().pop()) - 55)
         .attr("dy", "0.32em")
         .attr("fill", "#000")
         .attr("font-size", "25px")
@@ -103,7 +84,7 @@ function drawLegend(svg, keys, z, width) {
 }
 
 function main() {
-    var margin = {top: 50, right: 100, bottom: 30, left: 100},
+    var margin = {top: 50, right: 100, bottom: 30, left: 70},
     width = 1100 - margin.left - margin.right,
     height = 650 - margin.top - margin.bottom;
 
@@ -127,8 +108,9 @@ function main() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+    // var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
+    var tooltip = d3.select("#tooltip");
 
     d3.csv("/data/impact-on-workforce/impact-migration-workforce.csv").then(function(data) {
         var keys = data.columns.slice(1);

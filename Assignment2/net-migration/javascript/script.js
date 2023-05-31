@@ -15,6 +15,7 @@ function createLine(svg, data, xScale, yScale, property,color) {
     .attr("stroke", color)
     .attr("stroke-width", 1.5)
     .attr("d", line);
+    
 }
 
 function addAnnotations(svg, yScale, data, text) {
