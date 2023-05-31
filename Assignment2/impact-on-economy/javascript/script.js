@@ -24,33 +24,27 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       });
   }
   
-  // function drawAxes(svg, x, y, height) {
-  //   svg.append("g")
-  //     .attr("class", "axis")
-  //     .attr("transform", "translate(0," + height + ")")
-  //     .call(d3.axisBottom(x))
-  //     .selectAll("text")
-  //     .attr("y", 0)
-  //     .attr("x", 9)
-  //     .attr("dy", ".35em")
-  //     .attr("transform", "rotate(90)")
-  //     .style("text-anchor", "start");
-  
-  //   svg.append("g")
-  //     .attr("class", "axis")
-  //     .call(d3.axisLeft(y).ticks(null, "s"))
-  //     .selectAll("line")
-  //     .attr("stroke-opacity", "0") // Set stroke-opacity to 0 to remove the colors
-  //     .attr("y2", -height);
-  // }
   function drawAxes(svg, x, y, height) {
+  
     svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
-      .selectAll("text")
-      .remove(); // Remove the text elements on the x-axis
-    
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("y", 10)
+    .attr("x", -30)
+    .attr("dy", ".35em")
+    .style("font-size","14px")
+    .style("text-anchor", "start")
+    .text(function(d) {
+      if (d.length > 7) {
+        return d.substring(0, 7) + "..."; // Truncate text if it's longer than 10 characters
+      } else {
+        return d;
+      }
+    });
+  
+  
     svg.append("g")
       .attr("class", "axis")
       .call(d3.axisLeft(y).ticks(null, "s"))
@@ -58,6 +52,21 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       .attr("stroke-opacity", "0") // Set stroke-opacity to 0 to remove the colors
       .attr("y2", -height);
   }
+  // function drawAxes(svg, x, y, height) {
+  //   svg.append("g")
+  //     .attr("class", "axis")
+  //     .attr("transform", "translate(0," + height + ")")
+  //     .call(d3.axisBottom(x))
+  //     .selectAll("text")
+  //     .remove(); // Remove the text elements on the x-axis
+    
+  //   svg.append("g")
+  //     .attr("class", "axis")
+  //     .call(d3.axisLeft(y).ticks(null, "s"))
+  //     .selectAll("line")
+  //     .attr("stroke-opacity", "0") // Set stroke-opacity to 0 to remove the colors
+  //     .attr("y2", -height);
+  // }
   
   
   
@@ -72,21 +81,22 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       .data(keys.slice().reverse())
       .enter()
       .append("g")
-      .attr("transform", (d, i) => "translate(50," + i * 20 + ")"); // Adjust the y-translation value here
+      .attr("transform", (d, i) => "translate(50," + i * 30 + ")"); // Adjust the y-translation value here
   
     legend
       .append("rect")
       .attr("x", 0)
       .attr("y", -9)
-      .attr("width", 10)
-      .attr("height", 10)
+      .attr("width", 25)
+      .attr("height", 25)
       .attr("fill", color);
   
     legend
       .append("text")
-      .attr("x", 15)
+      .attr("x", 30)
       .attr("y", 0)
       .attr("dy", "0.32em")
+      .style("font-size","20px")
       .text(function (d) {
         return d
       });

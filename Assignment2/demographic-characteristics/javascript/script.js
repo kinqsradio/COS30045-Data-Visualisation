@@ -1,7 +1,7 @@
 // Reusable function to draw the line chart
 function drawLineChart(data) {
     // Set the dimensions and margins of the chart
-    var margin = { top: 20, right: 30, bottom: 30, left: 60 },
+    var margin = { top: 20, right: 30, bottom: 30, left: 80 },
       width = 1100 - margin.left - margin.right,
       height = 650 - margin.top - margin.bottom;
   
@@ -85,10 +85,18 @@ function drawLineChart(data) {
     // Add the X Axis
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
+      .style("font-size","20px")
       .call(d3.axisBottom(x));
   
     // Add the Y Axis
-    svg.append("g").call(d3.axisLeft(y));
+    svg.append("g")
+    .style("font-size", "20px")
+    .call(d3.axisLeft(y)
+      .tickFormat(function (d) {
+        return d  + "k";
+      })
+    );
+  
   
     // Add labels
     svg.append("text")
@@ -98,12 +106,14 @@ function drawLineChart(data) {
   
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left +10)
-      .attr("x", 0 - (height / 2))
+      .attr("y", 0 - margin.left +5 )
+      .attr("x", 0 - (height / 2) -20)
       .attr("dy", "1em")
       .style("text-anchor", "middle")
+      .style("font-size","25px  ")
       .text("Population");
-  
+
+
     // Add a legend
     var legend = svg.append("g")
       .attr("class", "legend")
@@ -113,18 +123,19 @@ function drawLineChart(data) {
       .data(categories)
       .enter()
       .append("rect")
-      .attr("width", 12)
-      .attr("height", 12)
-      .attr("y", function (d, i) { return i * 20; })
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("y", function (d, i) { return i * 25; })
       .style("fill", function (d, i) { return colorScale(i); });
   
     legend.selectAll("text")
       .data(categories)
       .enter()
       .append("text")
-      .attr("x", 20)
-      .attr("y", function (d, i) { return i * 20 + 10; })
+      .attr("x", 25)
+      .attr("y", function (d, i) { return i * 25 + 10; })
       .attr("dy", ".35em")
+      .style("font-size","20px")
       .text(function (d) { return d; });
   }
   
