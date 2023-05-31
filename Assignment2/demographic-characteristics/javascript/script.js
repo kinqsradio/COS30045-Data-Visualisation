@@ -1,7 +1,7 @@
 // Reusable function to draw the line chart
 function drawLineChart(data) {
     // Set the dimensions and margins of the chart
-    var margin = { top: 20, right: 30, bottom: 30, left: 80 },
+    var margin = { top: 20, right: 30, bottom: 30, left: 100 },
       width = 1100 - margin.left - margin.right,
       height = 650 - margin.top - margin.bottom;
   
@@ -106,7 +106,7 @@ function drawLineChart(data) {
   
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left +5 )
+      .attr("y", 0 - margin.left +20 )
       .attr("x", 0 - (height / 2) -20)
       .attr("dy", "1em")
       .style("text-anchor", "middle")

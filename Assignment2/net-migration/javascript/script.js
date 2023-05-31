@@ -135,13 +135,15 @@ function main() {
     .selectAll("text")
     .style("font-size", "18px");
 
+
     svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(" + padding + ", 0)")
       .call(yAxis)
       .selectAll("text")
-      .style("font-size", "18px");;
-
+      .style("font-size", "18px");
+      
+    
     addAnnotations(svg, yScale, 0, "Zero Line");
 
     // Create lines and points for each property
@@ -187,6 +189,21 @@ function main() {
       .text("Covid Period")
       .attr("fill", "red")
       .attr("class", "covid-line");
+      svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -(h / 2))
+      .attr("y", padding - 70)
+      .attr("dy", "1em")
+      .style("font-size","25px")
+      .style("text-anchor", "middle")
+      .text("Thousand");
+
+      svg.append("text")
+      .attr("x", w/2)
+      .attr("y", h - 40)
+      .style("font-size","25px")  
+      .text("Year")
+        
   });
 }
 

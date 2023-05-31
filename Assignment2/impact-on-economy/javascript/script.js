@@ -10,7 +10,7 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
       .attr("fill", (d) => color(d["Goods And Services"]))
       .on("mouseover", (event, d) => {
         tooltip.style("display", "block") // Set display property to block
-          .html("Population: " + d.value)
+          .html("$ " + d.value +"k")
           .style("left", event.pageX + "px")
           .style("top", event.pageY - 28 + "px");
       })
@@ -31,9 +31,10 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .selectAll("text")
-    .attr("y", 10)
-    .attr("x", -30)
+    .attr("y", 25)
+    .attr("x", -37)
     .attr("dy", ".35em")
+    .attr("transform", "rotate(-45)") // Rotate the x-axis labels by -45 degrees
     .style("font-size","14px")
     .style("text-anchor", "start")
     .text(function(d) {
@@ -43,15 +44,29 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
         return d;
       }
     });
+    
   
   
     svg.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(y).ticks(null, "s"))
+      .call(d3.axisLeft(y).ticks(null,"s"))
       .selectAll("line")
       .attr("stroke-opacity", "0") // Set stroke-opacity to 0 to remove the colors
+      .style("font-size","30px")
       .attr("y2", -height);
+      svg.append("text")
+        .attr("x", -350)
+        .attr("y", y(y.ticks().pop()) - 50)
+        .attr("dy", "0.32em")
+        .attr("fill", "#000")
+        .attr("font-size", "25px")
+        .attr("text-anchor", "start")
+        .attr("transform", "rotate(-90)")
+        .text("Cost Expenditure");
+    
+      
   }
+  
   // function drawAxes(svg, x, y, height) {
   //   svg.append("g")
   //     .attr("class", "axis")
@@ -85,7 +100,7 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
   
     legend
       .append("rect")
-      .attr("x", 0)
+      .attr("x", 700)
       .attr("y", -9)
       .attr("width", 25)
       .attr("height", 25)
@@ -93,10 +108,10 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
   
     legend
       .append("text")
-      .attr("x", 30)
+      .attr("x", 730)
       .attr("y", 0)
       .attr("dy", "0.32em")
-      .style("font-size","20px")
+      .style("font-size","12px")
       .text(function (d) {
         return d
       });
@@ -104,7 +119,7 @@ function drawBar(svg, data, x, y, height, color, tooltip) {
   
   
   function main() {
-    var margin = { top: 70, right: 50, bottom: 50, left: 70 },
+    var margin = { top: 70, right: 300, bottom: 50, left: 100 },
       width = 1100 - margin.left - margin.right,
       height = 700 - margin.top - margin.bottom;
   
