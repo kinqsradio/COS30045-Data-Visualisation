@@ -1,7 +1,11 @@
+// Define the width and height of the visualization
 var width = 1000;
 var height = 720;
+
+// SVG element
 var svg;
 
+// Function to return color range for heatmap
 function getColorRange() {
     return d3.scaleQuantize()
         .range([
@@ -17,6 +21,7 @@ function getColorRange() {
         ]);
 }
 
+// Function to create an SVG container
 function createSVG(width, height) {
     return d3.select("#chart")
         .append("svg")
@@ -24,19 +29,20 @@ function createSVG(width, height) {
         .attr("height", height);
 }
 
+// Function to get the geographical projection for the map
 function getProjection(width, height) {
     return d3.geoMercator()
-        .translate([width / 2, height / 2])
-        .scale(width / (2 * Math.PI) -35); // scale for world map
+        .translate([width / 2, height / 2]) // Center the map
+        .scale(width / (2 * Math.PI) -35); // Set scale factor
 }
 
+// Function to get the path using the projection
 function getPath(projection) {
     return d3.geoPath().projection(projection);
 }
 
-
+// Function to create a heatmap with the given SVG, path, color, json data, projection, and year
 function createHeatMap(svg, path, color, json, projection, year) {
-
   svg.selectAll("path")
       .data(json.features)
       .enter()
@@ -62,7 +68,7 @@ function createHeatMap(svg, path, color, json, projection, year) {
           tooltip.style("visibility", "visible")
               .style("left", (event.pageX - 410)  + "px")
               .style("top", (event.pageY -150) + "px");
-                      // Change border style
+
         d3.select(this)
         .style("stroke", "black")
         .style("stroke-width", 2);
@@ -74,10 +80,9 @@ function createHeatMap(svg, path, color, json, projection, year) {
         .style("stroke", null)
         .style("stroke-width", null);
     });
-     
 }
 
-
+// Function to update the map for the given year
 function update(year) {
     svg.selectAll("path").remove(); // Remove existing paths
 
@@ -116,6 +121,7 @@ function update(year) {
   });
 }
 
+// Function to load data and create the map
 function loadDataAndCreateMap(svg, path, color, projection) {
   d3.csv("/data/source-countries/source-countries.csv").then(function(countryData) {
       countryData.forEach(function(d) {
@@ -148,6 +154,7 @@ function loadDataAndCreateMap(svg, path, color, projection) {
   });
 }
 
+// Function to create a legend on the SVG
 function createLegend(svg) {
   var color = getColorRange();
 
@@ -180,6 +187,7 @@ function createLegend(svg) {
       .text(function(d) { return d.text; });
 }
 
+// Main function to create the SVG, load the data, and create the map and legend
 function main() {
   svg = createSVG(width, height);
   var projection = getProjection(width, height);
@@ -198,6 +206,7 @@ function main() {
   });
 }
 
+// Call the main function when the window is loaded
 window.onload = function() {
   main();
 };

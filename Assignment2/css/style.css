@@ -1,18 +1,19 @@
+/* Scroll behavior */
 html {
-	scroll-behavior: smooth;
+	scroll-behavior: smooth; /* Smooth scrolling effect */
 }
 
 /* Style the navigation bar */
 nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; /* Distribute space evenly on horizontal line */
+  align-items: center; /* Center items vertically */
   background: linear-gradient(to right, #ff5f6d, #ffc371); /* Gradient background */
   height: 60px;
   padding: 0 20px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2); /* Add shadow for 3D effect */
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1); /* Smooth transition effect */
-  position: fixed;
+  position: fixed; /* Position is fixed and covers the top of the page */
   top: 0;
   left: 0;
   right: 0;
@@ -24,7 +25,7 @@ nav a {
   text-align: center;
   text-decoration: none;
   padding: 16px;
-  transition: color 0.3s;
+  transition: color 0.3s; /* Color transition effect */
   font-family: 'Roboto', sans-serif; /* Use a more modern font */
 }
 
@@ -42,7 +43,6 @@ nav a:hover {
 
 /* Style the logo */
 nav .logo {
-  
   font-weight: bold;
   font-size: 24px;
   color: white;
@@ -50,63 +50,62 @@ nav .logo {
   font-family: 'Montserrat', sans-serif; /* Use a more modern font */
 }
 
-/* Rest of the CSS styles remain the same */
-
-/* Use a more modern font for body */
+/* Style the body */
 body {
-	font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif; /* Use a more modern font */
   color: rgb(36, 25, 25);
   height: 100vh;
   margin: 0;
-  display: flex; /* Use display: flex to enable flexbox layout */
+  display: flex; /* Enable flexbox layout */
   justify-content: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
   background-color: grey;
 }
 
-
+/* Style the headings */
 h1 {
-	font-style: bold;
-	color: rgb(185, 123, 8);
+  font-style: bold;
+  color: rgb(185, 123, 8);
   text-align: center;
 }
-
 h2 {
-	font-weight: normal;
+  font-weight: normal;
 }
 
+/* Style the image container */
 .image-container {
-	display: flex; /* Set the container to use flexbox layout */
-	justify-content: space-evenly; /* Distribute the images evenly along the container */
-	margin-bottom: 3%;
+  display: flex; /* Enable flexbox layout */
+  justify-content: space-evenly; /* Distribute the images evenly along the container */
+  margin-bottom: 3%;
 }
+
+/* Style the images */
 .image {
-	/* Set the width of each image */
-	max-width: 15%;
-	max-height: auto;
+  max-width: 15%; /* Set the width of each image */
+  max-height: auto;
+}
+.table-image {
+  display: block;
+  margin: auto;
+  max-width: 40%;
 }
 
-.table-image{
-	display: block;
-	margin: auto;
-	max-width: 40%;
-}
-
+/* Style the figure */
 figure {
-	display: block;
-	text-align: center;
-	margin: 5px; /* adjust as needed */
+  display: block;
+  text-align: center;
+  margin: 5px; /* Adjust as needed */
 }
 figure img {
-	vertical-align: top;
-	max-width: 100%;
+  vertical-align: top;
+  max-width: 100%;
 }
 figure figcaption {
-	text-align: center;
-	font-style: italic;
+  text-align: center;
+  font-style: italic;
 }
-  
 
+/* Style the button container */
 .button-container {
   display: flex;
   align-items: center;
@@ -114,19 +113,18 @@ figure figcaption {
   position: absolute;
   bottom: 30px;
   float: left;
-  
-  
 }
 
+/* Style the button */
 button {
+  /* Complex style for a 3D effect */
   --b: 3px;
   --s: .25em;
   --color: #373B44;
   padding: calc(.5em + var(--s)) calc(.9em + var(--s));
   color: var(--color);
   --_p: var(--s);
-  background: conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
-    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  background: conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0) var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
   transition: .3s linear, color 0s, background-color 0s;
   outline: var(--b) solid #0000;
   outline-offset: .6em;
@@ -136,7 +134,6 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
-
 
 button:hover,
 button:focus-visible {
@@ -150,6 +147,7 @@ button:active {
   color: #fff;
 }
 
+/* Chart related */
 
 .line {
 	stroke: slategray;
